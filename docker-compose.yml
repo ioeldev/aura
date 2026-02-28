@@ -5,8 +5,10 @@ services:
             dockerfile: Dockerfile
         container_name: aura
         restart: unless-stopped
-        ports:
-            - "2655:2655"
+        # Host networking is required so the container reads the host's real
+        # network interfaces for live bandwidth stats. With bridge networking
+        # systeminformation only sees the container's virtual veth pair (~0 B/s).
+        network_mode: host
         volumes:
             - /var/run/docker.sock:/var/run/docker.sock:ro
             - ./config:/app/config:ro
