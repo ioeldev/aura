@@ -39,8 +39,7 @@ services:
         image: ghcr.io/ioeldev/aura:latest
         container_name: aura
         restart: unless-stopped
-        ports:
-            - "2655:2655"
+        network_mode: host
         volumes:
             - /var/lib/vnstat:/var/lib/vnstat:ro
             - /var/run/docker.sock:/var/run/docker.sock:ro
@@ -64,7 +63,7 @@ OR
 docker run -d \
   --name aura \
   --restart unless-stopped \
-  -p 2655:2655 \
+  --network host \
   -v /var/run/docker.sock:/var/run/docker.sock:ro \
   -v /mnt:/mnt:ro \
   -v $(pwd)/services.json:/app/config/services.json:ro \
