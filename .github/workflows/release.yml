@@ -4,7 +4,12 @@ on:
   push:
     tags:
       - "v*"           # triggers on v1.0.0, v1.2.3, etc.
-  workflow_dispatch:   # allows manual trigger from GitHub UI
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Docker image tag (e.g. dev, staging). Defaults to branch name."
+        required: false
+        default: ""
 
 env:
   REGISTRY: ghcr.io
@@ -34,9 +39,11 @@ jobs:
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           tags: |
-            type=semver,pattern={{version}}        # v1.2.3  → 1.2.3
-            type=semver,pattern={{major}}.{{minor}} # v1.2.3  → 1.2
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
             type=raw,value=latest,enable=${{ github.ref == format('refs/tags/{0}', github.ref_name) }}
+            type=ref,event=branch
+            type=raw,value=${{ github.event.inputs.tag }},enable=${{ github.event.inputs.tag != '' }}
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
