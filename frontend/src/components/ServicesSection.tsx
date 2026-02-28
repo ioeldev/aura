@@ -4,7 +4,6 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import type { ServiceStatus } from "@/types";
 
-const CATEGORIES = ["Media", "Management", "Download", "Monitoring", "Infra"] as const;
 const SKELETON_COUNT = 12;
 
 interface ServicesSectionProps {
@@ -16,12 +15,19 @@ interface ServicesSectionProps {
 export function ServicesSection({ services, loading, onRefresh }: ServicesSectionProps) {
     const grouped = useMemo(() => {
         const map = new Map<string, ServiceStatus[]>();
+        const seenCategories: string[] = [];
+
         for (const svc of services) {
-            const cat = svc.category ?? "Other";
-            if (!map.has(cat)) map.set(cat, []);
+            const cat = svc.category ?? "Uncategorized";
+
+            if (!map.has(cat)) {
+                map.set(cat, []);
+                seenCategories.push(cat);
+            }
             map.get(cat)!.push(svc);
         }
-        return [...CATEGORIES, "Other"]
+
+        return seenCategories
             .map((cat) => ({ cat, services: map.get(cat) ?? [] }))
             .filter((g) => g.services.length > 0);
     }, [services]);
