@@ -72,8 +72,6 @@ function loadServices(): ServiceConfig[] {
     }
 }
 
-const BASE_PATH = (process.env.BASE_PATH || "").replace(/\/$/, "") || "";
-
 const app = express();
 const docker = new Docker({ socketPath: "/var/run/docker.sock" });
 const PORT = process.env.PORT || 2655;
@@ -81,16 +79,6 @@ const STATIC_DIR = process.env.STATIC_DIR || path.join(__dirname, "../../public"
 
 app.use(cors());
 app.use(express.json());
-
-// Strip BASE_PATH from incoming requests so routes match (for reverse proxy subpath deployment)
-if (BASE_PATH) {
-    app.use((req, res, next) => {
-        if (req.url === BASE_PATH || req.url.startsWith(BASE_PATH + "/")) {
-            req.url = req.url === BASE_PATH ? "/" : req.url.slice(BASE_PATH.length);
-        }
-        next();
-    });
-}
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
@@ -515,20 +503,14 @@ app.get("/api/network-stats", async (_req, res) => {
 
 app.use(express.static(STATIC_DIR));
 
-const INDEX_HTML = (() => {
-    const raw = readFileSync(path.join(STATIC_DIR, "index.html"), "utf-8");
-    return raw.replace(/__AURA_BASE_PATH_PLACEHOLDER__/g, BASE_PATH || "");
-})();
-
 app.get("*", (_req, res) => {
-    res.type("html").send(INDEX_HTML);
+    res.sendFile(path.join(STATIC_DIR, "index.html"));
 });
 
 // ─── HTTP Server + WebSocket ───────────────────────────────────────────────────
 
 const httpServer = createServer(app);
-const wsPath = BASE_PATH ? `${BASE_PATH}/ws` : "/ws";
-const wss = new WebSocketServer({ server: httpServer, path: wsPath });
+const wss = new WebSocketServer({ server: httpServer, path: "/ws" });
 const networkStatsSubscribers = new Set<WebSocket>();
 
 wss.on("connection", (ws, req) => {
@@ -569,8 +551,7 @@ setInterval(async () => {
 }, NETWORK_STATS_INTERVAL_MS);
 
 httpServer.listen(PORT, () => {
-    const base = BASE_PATH ? `${BASE_PATH}` : "";
-    console.log(`Backend running on http://localhost:${PORT}${base} (ws://localhost:${PORT}${wsPath})`);
+    console.log(`Backend running on http://localhost:${PORT} (ws://localhost:${PORT}/ws)`);
     console.log(
         `Auth: ${
             AUTH_ENABLED

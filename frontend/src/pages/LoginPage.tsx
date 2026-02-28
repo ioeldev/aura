@@ -1,7 +1,6 @@
 import { useState, type FormEvent } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
-import { BASE_PATH } from '@/lib/basePath';
 
 export function LoginPage() {
     const { login } = useAuth();
@@ -28,7 +27,7 @@ export function LoginPage() {
             <div className="w-full max-w-sm">
                 {/* Logo + title */}
                 <div className="flex flex-col items-center gap-3 mb-8">
-                    <img src={`${BASE_PATH}/logo.svg`} alt="Logo" className="w-auto h-12" />
+                    <img src="/logo.svg" alt="Logo" className="w-auto h-12" />
                     <div className="text-center">
                         <h1 className="text-2xl text-foreground">AURA</h1>
                         <p className="text-sm text-muted-foreground mt-1">Sign in to continue</p>
