@@ -2,6 +2,8 @@
 
 A self-hosted Docker services dashboard — monitor containers, system stats, network traffic and disk usage from a single page.
 
+![Aura panel screenshot](https://gcdnb.pbrd.co/images/JOFaqx4WaYSQ.png)
+
 ## Features
 
 -   **Services** — live Docker status for all your containers (start / stop / restart)
