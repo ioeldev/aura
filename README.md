@@ -58,10 +58,10 @@ services:
         ports:
             - "2655:2655"
         volumes:
+            - /var/lib/vnstat:/var/lib/vnstat:ro
             - /var/run/docker.sock:/var/run/docker.sock:ro
             - /mnt:/mnt:ro
             - ./services.json:/app/config/services.json:ro
-            - /var/lib/vnstat:/var/lib/vnstat:ro
         environment:
             - ADMIN_USERNAME=admin
             - ADMIN_PASSWORD=changeme
@@ -134,13 +134,24 @@ Icons: [walkxcode/dashboard-icons](https://github.com/walkxcode/dashboard-icons)
 
 ### Volumes
 
-| Mount                                       | Purpose                               |
-| ------------------------------------------- | ------------------------------------- |
-| `/var/run/docker.sock`                      | Read container states from Docker     |
-| `./services.json:/app/config/services.json` | Your services list                    |
-| `/mnt`                                      | Host mount points for disk monitoring |
+| Mount                                       | Purpose                                  |
+| ------------------------------------------- | ---------------------------------------- |
+| `/var/run/docker.sock`                      | Read container states from Docker        |
+| `./services.json:/app/config/services.json` | Your services list                       |
+| `/mnt`                                      | Host mount points for disk monitoring    |
 | `/var/lib/vnstat`                           | Host vnstat database for network history |
-| `./data:/app/data` _(optional)_             | Persist auth sessions across restarts |
+| `./data:/app/data` _(optional)_             | Persist auth sessions across restarts    |
+
+### Network history (vnstat)
+
+The network history panel reads data from `vnstat` running on the **host**. The container mounts `/var/lib/vnstat` read-only and queries it directly, so vnstat must be installed and running on the host before starting Aura.
+
+```bash
+sudo apt update && sudo apt install vnstat
+sudo systemctl enable --now vnstat
+```
+
+Give it a few minutes to start collecting data, then restart Aura.
 
 ---
 
