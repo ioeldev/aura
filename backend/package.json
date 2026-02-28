@@ -6,7 +6,6 @@
         "dev": "bun run --env-file ../.env src/server.ts"
     },
     "dependencies": {
-        "better-sqlite3": "^9.4.3",
         "cors": "^2.8.5",
         "dockerode": "^4.0.2",
         "express": "^4.18.2",
