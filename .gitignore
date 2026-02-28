@@ -1,0 +1,23 @@
+# Dependencies
+node_modules/
+**/node_modules/
+
+# Build output
+frontend/dist/
+backend/dist/
+public/
+
+# Runtime data (SQLite sessions, etc.)
+data/
+
+# User configuration — contains personal URLs and credentials
+.env
+config/services.json
+backend/config/services.json
+
+# OS / editor
+.DS_Store
+*.swp
+*.swo
+.idea/
+.vscode/

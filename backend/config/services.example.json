@@ -1,0 +1,61 @@
+{
+  "_comment": "Copy this file to services.json and edit it to match your setup.",
+  "services": [
+    {
+      "id": "plex",
+      "displayName": "Plex",
+      "dockerName": "plex",
+      "icon": "https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/plex.png",
+      "url": "http://YOUR_SERVER_IP:32400",
+      "category": "Media"
+    },
+    {
+      "id": "jellyfin",
+      "displayName": "Jellyfin",
+      "dockerName": "jellyfin",
+      "icon": "https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/jellyfin.png",
+      "url": "http://YOUR_SERVER_IP:8096",
+      "category": "Media"
+    },
+    {
+      "id": "sonarr",
+      "displayName": "Sonarr",
+      "dockerName": "sonarr",
+      "icon": "https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/sonarr.png",
+      "url": "http://YOUR_SERVER_IP:8989",
+      "category": "Management"
+    },
+    {
+      "id": "radarr",
+      "displayName": "Radarr",
+      "dockerName": "radarr",
+      "icon": "https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/radarr.png",
+      "url": "http://YOUR_SERVER_IP:7878",
+      "category": "Management"
+    },
+    {
+      "id": "prowlarr",
+      "displayName": "Prowlarr",
+      "dockerName": "prowlarr",
+      "icon": "https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/prowlarr.png",
+      "url": "http://YOUR_SERVER_IP:9696",
+      "category": "Management"
+    },
+    {
+      "id": "qbittorrent",
+      "displayName": "qBittorrent",
+      "dockerName": "qbittorrent",
+      "icon": "https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/qbittorrent.png",
+      "url": "http://YOUR_SERVER_IP:8080",
+      "category": "Download"
+    },
+    {
+      "id": "portainer",
+      "displayName": "Portainer",
+      "dockerName": "portainer",
+      "icon": "https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/portainer.png",
+      "url": "http://YOUR_SERVER_IP:9000",
+      "category": "Infra"
+    }
+  ]
+}
