@@ -21,7 +21,7 @@ function formatUptime(seconds: number): string {
   const hours = Math.floor((seconds % SECS_PER_DAY) / SECS_PER_HOUR);
   const minutes = Math.floor((seconds % SECS_PER_HOUR) / SECS_PER_MIN);
   const parts: string[] = [];
-  if (days > 0) parts.push(`${days}j`);
+  if (days > 0) parts.push(`${days}d`);
   if (hours > 0) parts.push(`${hours}h`);
   parts.push(`${minutes}m`);
   return parts.join(' ');
@@ -65,7 +65,7 @@ export function Header({ system, loading }: Props) {
               {formatUptime(system.uptime)}
             </span>
             <p className="text-xs text-muted-foreground leading-tight">
-              {Math.floor(system.uptime / SECS_PER_DAY)}j {Math.floor((system.uptime % SECS_PER_DAY) / SECS_PER_HOUR)}h depuis le redémarrage
+              {Math.floor(system.uptime / SECS_PER_DAY)}d {Math.floor((system.uptime % SECS_PER_DAY) / SECS_PER_HOUR)}h since boot
             </p>
           </div>
         ) : (

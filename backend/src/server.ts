@@ -222,7 +222,7 @@ app.post("/api/auth/login", (req, res) => {
     const passwordMatch = safeCompare(password ?? "", ADMIN_PASSWORD);
 
     if (!usernameMatch || !passwordMatch) {
-        res.status(401).json({ error: "Identifiants incorrects" });
+        res.status(401).json({ error: "Invalid credentials" });
         return;
     }
 

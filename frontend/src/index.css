@@ -11,9 +11,9 @@
   color-scheme: light;
   --radius: 0.625rem;
 
-  /* Fond déjà ajusté : quasi blanc avec une pointe d'émeraude */
+  /* Light background with subtle teal tint */
   --background: oklch(0.98 0.005 200); 
-  --foreground: oklch(0.25 0.04 195); /* Texte sombre tirant sur le pétrole */
+  --foreground: oklch(0.25 0.04 195);
 
   --card: oklch(0.98 0.005 200);
   --card-foreground: oklch(0.25 0.04 195);
@@ -21,7 +21,7 @@
   --popover: oklch(0.99 0.005 200);
   --popover-foreground: oklch(0.25 0.04 195);
 
-  /* PRIMARY: L'émeraude du logo (Teal vibrant) */
+  /* PRIMARY: Vibrant teal */
   --primary: oklch(0.55 0.14 190); 
   --primary-foreground: oklch(0.98 0.01 190);
 
@@ -40,7 +40,7 @@
   --input: oklch(0.90 0.02 195);
   --ring: oklch(0.55 0.14 190);
 
-  /* SIDEBAR: Un peu plus froid pour la structure */
+  /* SIDEBAR */
   --sidebar: oklch(0.97 0.01 195);
   --sidebar-foreground: oklch(0.25 0.04 195);
   --sidebar-primary: oklch(0.55 0.14 190);
@@ -97,7 +97,7 @@
 
 .dark {
   color-scheme: dark;
-  /* Fond "Deep Space" : Bleu-vert très sombre et désaturé */
+  /* Dark mode: deep blue-green background */
   --background: oklch(0.12 0.03 195); 
   --foreground: oklch(0.94 0.02 190);
   
@@ -107,7 +107,7 @@
   --popover: oklch(0.14 0.03 195);
   --popover-foreground: oklch(0.94 0.02 190);
   
-  /* PRIMARY DARK: Un peu plus lumineux pour percer le sombre */
+  /* PRIMARY DARK: Brighter to stand out on dark */
   --primary: oklch(0.65 0.16 185); 
   --primary-foreground: oklch(0.1 0.03 195);
   
@@ -124,7 +124,7 @@
   --input: oklch(0.25 0.04 195);
   --ring: oklch(0.65 0.16 185);
 
-  /* Charts harmonisés */
+  /* Charts */
   --chart-1: oklch(0.65 0.18 185);
   --chart-2: oklch(0.75 0.12 160);
   --chart-3: oklch(0.55 0.15 200);

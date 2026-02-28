@@ -16,21 +16,13 @@ function formatSpeed(bytesPerSec: number): string {
 function formatBytes(bytes: number): string {
     if (bytes === 0) return "0 B";
     
-    // Swizzin utilise 1024 mais affiche les labels sans le 'i' (standard JEDEC)
+    // JEDEC standard (1024 base), display without 'i' suffix
     const k = 1024;
     const sizes = ["B", "KB", "MB", "GB", "TB", "PB"];
     
-    // Calcule l'index de l'unité (0 pour B, 1 pour KB, etc.)
     const i = Math.floor(Math.log(bytes) / Math.log(k));
-    
-    // On limite à l'unité maximale disponible dans notre tableau
     const unitIndex = Math.min(i, sizes.length - 1);
-    
     const value = bytes / Math.pow(k, unitIndex);
-    
-    // Formatage intelligent des décimales
-    // Moins de 10 -> 2 décimales (ex: 1.86 GB)
-    // Plus de 10 -> 2 décimales aussi pour rester précis comme Swizzin
     return `${value.toFixed(2)} ${sizes[unitIndex]}`;
 }
 
@@ -135,7 +127,7 @@ export function NetworkSection() {
             <CardContent>
                 <div className="flex items-center justify-between mb-4">
                     <h2 className="text-sm font-semibold uppercase tracking-widest text-muted-foreground">
-                        Réseau
+                        Network
                     </h2>
                     {readyState === ReadyState.OPEN && (
                         <span className="hidden shrink-0 sm:inline-flex h-2 w-2 animate-pulse rounded-full bg-emerald-500" />
@@ -175,14 +167,14 @@ export function NetworkSection() {
                     >
                         <AccordionItem value="history" className="border-none">
                             <AccordionTrigger className="py-2 hover:no-underline text-muted-foreground">
-                                Historique vnstat
+                                vnstat history
                             </AccordionTrigger>
                             <AccordionContent className="pt-2">
                                 {history ? (
                                     <HistoryTables history={history} />
                                 ) : (
                                     <div className="py-4 text-sm text-muted-foreground">
-                                        Chargement… (vnstat requis sur le serveur)
+                                        Loading… (vnstat required on server)
                                     </div>
                                 )}
                             </AccordionContent>

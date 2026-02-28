@@ -18,22 +18,22 @@ interface StatusConfig {
 
 const STATUS_CONFIG: Record<DockerStatus, StatusConfig> = {
   running: {
-    label: 'En ligne',
+    label: 'Online',
     dotClass: 'bg-emerald-500',
     pulse: true,
   },
   paused: {
-    label: 'En pause',
+    label: 'Paused',
     dotClass: 'bg-amber-500',
     pulse: false,
   },
   stopped: {
-    label: 'Arrêté',
+    label: 'Stopped',
     dotClass: 'bg-muted-foreground',
     pulse: false,
   },
   not_found: {
-    label: 'Introuvable',
+    label: 'Not found',
     dotClass: 'bg-destructive',
     pulse: false,
   },
@@ -64,7 +64,7 @@ export function ServiceCard({ service, onActionSuccess }: Props) {
       await onActionSuccess?.();
     } catch (err) {
       console.error(`[ServiceCard] ${action} failed:`, err);
-      alert(err instanceof Error ? err.message : 'Action échouée');
+      alert(err instanceof Error ? err.message : 'Action failed');
     }
   };
 
@@ -150,21 +150,21 @@ export function ServiceCard({ service, onActionSuccess }: Props) {
                 onClick={() => runAction('start')}
               >
                 <Play className="size-4" />
-                Démarrer
+                Start
               </DropdownMenuItem>
               <DropdownMenuItem
                 disabled={!canStop}
                 onClick={() => runAction('stop')}
               >
                 <Square className="size-4" />
-                Arrêter
+                Stop
               </DropdownMenuItem>
               <DropdownMenuItem
                 disabled={!canRestart}
                 onClick={() => runAction('restart')}
               >
                 <RotateCw className="size-4" />
-                Redémarrer
+                Restart
               </DropdownMenuItem>
             </DropdownMenuContent>
             </DropdownMenu>

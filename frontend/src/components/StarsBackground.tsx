@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 
-// Positions fixes pour un effet de mini-étoiles (répétables)
+// Fixed positions for repeatable starfield effect
 const STAR_POSITIONS = [
     [2, 5], [15, 12], [28, 3], [41, 18], [55, 8], [67, 22], [80, 4], [93, 15],
     [7, 25], [22, 32], [35, 28], [48, 38], [62, 31], [75, 42], [88, 29], [5, 45],
