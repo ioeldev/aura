@@ -62,6 +62,7 @@ services:
             - ADMIN_USERNAME=admin
             - ADMIN_PASSWORD=changeme
             - SESSION_EXPIRE_HOURS=24
+            # - BASE_PATH=/aura   # optional: for reverse proxy subpath
 ```
 
 ```bash
@@ -90,13 +91,16 @@ docker compose up -d
 
 ### Authentication
 
-| Variable               | Default   | Description                                      |
-| ---------------------- | --------- | ------------------------------------------------ |
-| `ADMIN_USERNAME`       | `admin`   | Login username                                   |
-| `ADMIN_PASSWORD`       | _(empty)_ | Login password — **leave empty to disable auth** |
-| `SESSION_EXPIRE_HOURS` | `24`      | Session lifetime in hours                        |
+| Variable               | Default   | Description                                                        |
+| ---------------------- | --------- | ------------------------------------------------------------------ |
+| `ADMIN_USERNAME`       | `admin`   | Login username                                                     |
+| `ADMIN_PASSWORD`       | _(empty)_ | Login password — **leave empty to disable auth**                   |
+| `SESSION_EXPIRE_HOURS` | `24`      | Session lifetime in hours                                         |
+| `BASE_PATH`            | _(empty)_ | Subpath for reverse proxy (e.g. `/aura`) — **rebuild required**     |
 
 > If `ADMIN_PASSWORD` is not set the panel is accessible without login. Suitable for a trusted local network, not for public exposure.
+
+> **Subpath deployment:** Set `BASE_PATH=/aura` (or your subpath) in docker-compose to run behind a reverse proxy at `https://example.com/aura`. Rebuild the image after changing `BASE_PATH`.
 
 ### Services config (`services.json`)
 
