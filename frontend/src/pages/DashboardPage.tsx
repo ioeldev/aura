@@ -33,7 +33,7 @@ export function DashboardPage() {
                     <ThemeToggle />
                     <button
                         onClick={() => void logout()}
-                        title={`Se déconnecter (${username ?? ""})`}
+                        title={`Log out (${username ?? ""})`}
                         className="flex items-center justify-center w-9 h-9 rounded-md text-muted-foreground hover:text-foreground hover:bg-accent transition-colors"
                     >
                         <LogOut className="w-4 h-4" />

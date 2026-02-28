@@ -17,11 +17,11 @@ export function ServicesSection({ services, loading, onRefresh }: ServicesSectio
     const grouped = useMemo(() => {
         const map = new Map<string, ServiceStatus[]>();
         for (const svc of services) {
-            const cat = svc.category ?? "Autres";
+            const cat = svc.category ?? "Other";
             if (!map.has(cat)) map.set(cat, []);
             map.get(cat)!.push(svc);
         }
-        return [...CATEGORIES, "Autres"]
+        return [...CATEGORIES, "Other"]
             .map((cat) => ({ cat, services: map.get(cat) ?? [] }))
             .filter((g) => g.services.length > 0);
     }, [services]);
@@ -37,8 +37,7 @@ export function ServicesSection({ services, loading, onRefresh }: ServicesSectio
                     </h2>
                     {!loading && (
                         <span className="text-xs text-muted-foreground tabular-nums">
-                            <span className="text-emerald-400 font-semibold">{runningCount}</span>/{services.length} en
-                            ligne
+                            <span className="text-emerald-400 font-semibold">{runningCount}</span>/{services.length} online
                         </span>
                     )}
                 </div>

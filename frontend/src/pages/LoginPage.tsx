@@ -16,7 +16,7 @@ export function LoginPage() {
         try {
             await login(username, password);
         } catch (err) {
-            setError(err instanceof Error ? err.message : 'Erreur de connexion');
+            setError(err instanceof Error ? err.message : 'Login failed');
         } finally {
             setLoading(false);
         }
@@ -30,7 +30,7 @@ export function LoginPage() {
                     <img src="/logo.svg" alt="Logo" className="w-auto h-12" />
                     <div className="text-center">
                         <h1 className="text-2xl text-foreground">AURA</h1>
-                        <p className="text-sm text-muted-foreground mt-1">Connectez-vous pour continuer</p>
+                        <p className="text-sm text-muted-foreground mt-1">Sign in to continue</p>
                     </div>
                 </div>
 
@@ -39,7 +39,7 @@ export function LoginPage() {
                     <form onSubmit={(e) => void handleSubmit(e)} className="space-y-4">
                         <div className="space-y-1.5">
                             <label htmlFor="username" className="text-sm font-medium text-foreground">
-                                Identifiant
+                                Username
                             </label>
                             <input
                                 id="username"
@@ -55,7 +55,7 @@ export function LoginPage() {
 
                         <div className="space-y-1.5">
                             <label htmlFor="password" className="text-sm font-medium text-foreground">
-                                Mot de passe
+                                Password
                             </label>
                             <input
                                 id="password"
@@ -80,7 +80,7 @@ export function LoginPage() {
                             disabled={loading || !username || !password}
                             className="w-full"
                         >
-                            {loading ? 'Connexion…' : 'Se connecter'}
+                            {loading ? 'Signing in…' : 'Sign in'}
                         </Button>
                     </form>
                 </div>

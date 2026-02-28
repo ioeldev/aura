@@ -21,7 +21,7 @@ export function StorageSection({ storage }: StorageSectionProps) {
     return (
         <Card className="mb-6">
             <CardContent>
-                <CardTitle className="text-sm uppercase tracking-widest text-muted-foreground mb-4">Stockage</CardTitle>
+                <CardTitle className="text-sm uppercase tracking-widest text-muted-foreground mb-4">Storage</CardTitle>
                 <div className="flex flex-col gap-4">
                     {rootDisks.map((disk) => (
                         <StorageBar key={disk.mountpoint} disk={disk} />
@@ -36,7 +36,7 @@ export function StorageSection({ storage }: StorageSectionProps) {
                         >
                             <AccordionItem value="other-disks" className="border-none">
                                 <AccordionTrigger className="py-2 hover:no-underline text-muted-foreground">
-                                    Autres disques ({otherDisks.length})
+                                    Other disks ({otherDisks.length})
                                 </AccordionTrigger>
                                 <AccordionContent className="pt-2">
                                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

@@ -61,7 +61,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     });
     if (!res.ok) {
       const data = await res.json().catch(() => ({})) as { error?: string };
-      throw new Error(data.error ?? 'Connexion échouée');
+      throw new Error(data.error ?? 'Login failed');
     }
     const { token } = await res.json() as { token: string };
     setToken(token);

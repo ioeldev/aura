@@ -21,7 +21,7 @@ export function usePolling<T>(url: string, intervalMs: number, initial: T): Poll
       setData(json);
       setError(null);
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Erreur inconnue');
+      setError(err instanceof Error ? err.message : 'Unknown error');
     } finally {
       setLoading(false);
     }
