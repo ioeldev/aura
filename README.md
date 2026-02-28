@@ -4,12 +4,12 @@ A self-hosted Docker services dashboard — monitor containers, system stats, ne
 
 ## Features
 
-- **Services** — live Docker status for all your containers (start / stop / restart)
-- **System** — CPU load, RAM usage, uptime
-- **Network** — real-time bandwidth (WebSocket) + historical data via vnstat
-- **Storage** — disk usage for `/` and every `/mnt/*` mount point
-- **Auth** — username + password login with server-side sessions (SQLite)
-- **Themes** — light / dark mode
+-   **Services** — live Docker status for all your containers (start / stop / restart)
+-   **System** — CPU load, RAM usage, uptime
+-   **Network** — real-time bandwidth (WebSocket) + historical data via vnstat
+-   **Storage** — disk usage for `/` and every `/mnt/*` mount point
+-   **Auth** — username + password login with server-side sessions (SQLite)
+-   **Themes** — light / dark mode
 
 ---
 
@@ -22,7 +22,7 @@ No need to clone the repo. Just grab the image, drop in your config, and run.
 Download the example and edit it:
 
 ```bash
-curl -sL https://raw.githubusercontent.com/yourname/aura/main/config/services.example.json \
+curl -sL https://raw.githubusercontent.com/ioeldev/aura/main/config/services.example.json \
   -o services.json
 # Edit services.json — replace URLs with your own
 ```
@@ -39,7 +39,7 @@ docker run -d \
   -v $(pwd)/services.json:/app/config/services.json:ro \
   -e ADMIN_USERNAME=admin \
   -e ADMIN_PASSWORD=changeme \
-  ghcr.io/yourname/aura:latest
+  ghcr.io/ioeldev/aura:latest
 ```
 
 ### 2b. docker compose
@@ -48,20 +48,20 @@ Create a `docker-compose.yml`:
 
 ```yaml
 services:
-  aura:
-    image: ghcr.io/yourname/aura:latest
-    container_name: aura
-    restart: unless-stopped
-    ports:
-      - "3000:3000"
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock:ro
-      - /mnt:/mnt:ro
-      - ./services.json:/app/config/services.json:ro
-    environment:
-      - ADMIN_USERNAME=admin
-      - ADMIN_PASSWORD=changeme
-      - SESSION_EXPIRE_HOURS=24
+    aura:
+        image: ghcr.io/ioeldev/aura:latest
+        container_name: aura
+        restart: unless-stopped
+        ports:
+            - "3000:3000"
+        volumes:
+            - /var/run/docker.sock:/var/run/docker.sock:ro
+            - /mnt:/mnt:ro
+            - ./services.json:/app/config/services.json:ro
+        environment:
+            - ADMIN_USERNAME=admin
+            - ADMIN_PASSWORD=changeme
+            - SESSION_EXPIRE_HOURS=24
 ```
 
 ```bash
@@ -75,7 +75,7 @@ The panel is available at **http://localhost:3000**.
 ## Option B — Build from source
 
 ```bash
-git clone https://github.com/yourname/aura.git
+git clone https://github.com/ioeldev/aura.git
 cd aura
 
 cp .env.example .env               # set ADMIN_PASSWORD
@@ -90,11 +90,11 @@ docker compose up -d
 
 ### Authentication
 
-| Variable | Default | Description |
-|---|---|---|
-| `ADMIN_USERNAME` | `admin` | Login username |
-| `ADMIN_PASSWORD` | *(empty)* | Login password — **leave empty to disable auth** |
-| `SESSION_EXPIRE_HOURS` | `24` | Session lifetime in hours |
+| Variable               | Default   | Description                                      |
+| ---------------------- | --------- | ------------------------------------------------ |
+| `ADMIN_USERNAME`       | `admin`   | Login username                                   |
+| `ADMIN_PASSWORD`       | _(empty)_ | Login password — **leave empty to disable auth** |
+| `SESSION_EXPIRE_HOURS` | `24`      | Session lifetime in hours                        |
 
 > If `ADMIN_PASSWORD` is not set the panel is accessible without login. Suitable for a trusted local network, not for public exposure.
 
@@ -104,38 +104,38 @@ Changes are picked up automatically — no restart needed.
 
 ```json
 {
-  "services": [
-    {
-      "id": "sonarr",
-      "displayName": "Sonarr",
-      "dockerName": "sonarr",
-      "icon": "https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/sonarr.png",
-      "url": "http://192.168.1.10:8989",
-      "category": "Management"
-    }
-  ]
+    "services": [
+        {
+            "id": "sonarr",
+            "displayName": "Sonarr",
+            "dockerName": "sonarr",
+            "icon": "https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/sonarr.png",
+            "url": "http://192.168.1.10:8989",
+            "category": "Management"
+        }
+    ]
 }
 ```
 
-| Field | Required | Description |
-|---|---|---|
-| `id` | ✅ | Unique identifier |
-| `displayName` | ✅ | Label shown in the UI |
-| `dockerName` | ✅ | Container name as shown by `docker ps` |
-| `icon` | ✅ | URL to an icon image |
-| `url` | ✅ | URL opened when clicking the service |
-| `category` | — | Groups services: `Media`, `Management`, `Download`, `Monitoring`, `Infra` |
+| Field         | Required | Description                                                               |
+| ------------- | -------- | ------------------------------------------------------------------------- |
+| `id`          | ✅       | Unique identifier                                                         |
+| `displayName` | ✅       | Label shown in the UI                                                     |
+| `dockerName`  | ✅       | Container name as shown by `docker ps`                                    |
+| `icon`        | ✅       | URL to an icon image                                                      |
+| `url`         | ✅       | URL opened when clicking the service                                      |
+| `category`    | —        | Groups services: `Media`, `Management`, `Download`, `Monitoring`, `Infra` |
 
 Icons: [walkxcode/dashboard-icons](https://github.com/walkxcode/dashboard-icons) — use `https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/<name>.png`
 
 ### Volumes
 
-| Mount | Purpose |
-|---|---|
-| `/var/run/docker.sock` | Read container states from Docker |
-| `./services.json:/app/config/services.json` | Your services list |
-| `/mnt` | Host mount points for disk monitoring |
-| `./data:/app/data` *(optional)* | Persist auth sessions across restarts |
+| Mount                                       | Purpose                               |
+| ------------------------------------------- | ------------------------------------- |
+| `/var/run/docker.sock`                      | Read container states from Docker     |
+| `./services.json:/app/config/services.json` | Your services list                    |
+| `/mnt`                                      | Host mount points for disk monitoring |
+| `./data:/app/data` _(optional)_             | Persist auth sessions across restarts |
 
 ---
 
@@ -148,7 +148,7 @@ git tag v1.0.0
 git push origin v1.0.0
 ```
 
-Image will be available at `ghcr.io/yourname/aura:1.0.0` and `ghcr.io/yourname/aura:latest`.
+Image will be available at `ghcr.io/ioeldev/aura:1.0.0` and `ghcr.io/ioeldev/aura:latest`.
 
 ---
 
