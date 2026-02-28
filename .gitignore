@@ -13,7 +13,6 @@ data/
 # User configuration — contains personal URLs and credentials
 .env
 config/services.json
-backend/config/services.json
 
 # OS / editor
 .DS_Store
