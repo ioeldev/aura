@@ -36,7 +36,7 @@ export interface NetworkHistoryPeriod {
 }
 
 export interface NetworkHistoryRow {
-    date: string;
+    label: string;
     down: number;
     up: number;
     total: number;
