@@ -516,7 +516,14 @@ app.get("/api/network-stats", async (_req, res) => {
 app.use(express.static(STATIC_DIR));
 
 app.get("*", (_req, res) => {
-    res.sendFile(path.join(STATIC_DIR, "index.html"));
+    const indexPath = path.join(STATIC_DIR, "index.html");
+    let html = readFileSync(indexPath, "utf-8");
+    if (BASE_PATH) {
+        html = html.replace(/__AURA_BASE_PATH_PLACEHOLDER__/g, BASE_PATH);
+    } else {
+        html = html.replace(/__AURA_BASE_PATH_PLACEHOLDER__/g, "");
+    }
+    res.type("html").send(html);
 });
 
 // ─── HTTP Server + WebSocket ───────────────────────────────────────────────────

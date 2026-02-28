@@ -3,8 +3,6 @@ services:
         build:
             context: .
             dockerfile: Dockerfile
-            args:
-                - BASE_PATH=${BASE_PATH:-}
         container_name: aura
         restart: unless-stopped
         ports:
