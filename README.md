@@ -29,23 +29,7 @@ curl -sL https://raw.githubusercontent.com/ioeldev/aura/main/config/services.exa
 # Edit services.json — replace URLs with your own
 ```
 
-### 2a. docker run
-
-```bash
-docker run -d \
-  --name aura \
-  --restart unless-stopped \
-  -p 2655:2655 \
-  -v /var/run/docker.sock:/var/run/docker.sock:ro \
-  -v /mnt:/mnt:ro \
-  -v $(pwd)/services.json:/app/config/services.json:ro \
-  -v /var/lib/vnstat:/var/lib/vnstat:ro \
-  -e ADMIN_USERNAME=admin \
-  -e ADMIN_PASSWORD=changeme \
-  ghcr.io/ioeldev/aura:latest
-```
-
-### 2b. docker compose
+### 2a. docker compose
 
 Create a `docker-compose.yml`:
 
@@ -70,6 +54,24 @@ services:
 
 ```bash
 docker compose up -d
+```
+
+OR
+
+### 2b. docker run
+
+```bash
+docker run -d \
+  --name aura \
+  --restart unless-stopped \
+  -p 2655:2655 \
+  -v /var/run/docker.sock:/var/run/docker.sock:ro \
+  -v /mnt:/mnt:ro \
+  -v $(pwd)/services.json:/app/config/services.json:ro \
+  -v /var/lib/vnstat:/var/lib/vnstat:ro \
+  -e ADMIN_USERNAME=admin \
+  -e ADMIN_PASSWORD=changeme \
+  ghcr.io/ioeldev/aura:latest
 ```
 
 The panel is available at **http://localhost:2655**.
@@ -152,43 +154,3 @@ sudo systemctl enable --now vnstat
 ```
 
 Give it a few minutes to start collecting data, then restart Aura.
-
----
-
-## Releasing a new version
-
-Tag a commit — GitHub Actions builds and pushes to GHCR automatically:
-
-```bash
-git tag v1.0.0
-git push origin v1.0.0
-```
-
-Image will be available at `ghcr.io/ioeldev/aura:1.0.0` and `ghcr.io/ioeldev/aura:latest`.
-
----
-
-## Development
-
-Requirements: Bun 1.x
-
-```bash
-cd backend && bun install
-cd ../frontend && bun install
-
-bun dev   # from repo root
-```
-
----
-
-## License
-
-MIT License
-
-Copyright (c) 2025
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
