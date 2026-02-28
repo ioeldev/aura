@@ -33,7 +33,7 @@ curl -sL https://raw.githubusercontent.com/ioeldev/aura/main/config/services.exa
 docker run -d \
   --name aura \
   --restart unless-stopped \
-  -p 3000:3000 \
+  -p 2655:2655 \
   -v /var/run/docker.sock:/var/run/docker.sock:ro \
   -v /mnt:/mnt:ro \
   -v $(pwd)/services.json:/app/config/services.json:ro \
@@ -53,7 +53,7 @@ services:
         container_name: aura
         restart: unless-stopped
         ports:
-            - "3000:3000"
+            - "2655:2655"
         volumes:
             - /var/run/docker.sock:/var/run/docker.sock:ro
             - /mnt:/mnt:ro
@@ -68,7 +68,7 @@ services:
 docker compose up -d
 ```
 
-The panel is available at **http://localhost:3000**.
+The panel is available at **http://localhost:2655**.
 
 ---
 
