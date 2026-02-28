@@ -1,4 +1,5 @@
 import { usePolling } from "@/hooks/usePolling";
+import { BASE_PATH } from "@/lib/basePath";
 import { Header } from "@/components/Header";
 import { NetworkSection } from "@/components/NetworkSection";
 import { StorageSection } from "@/components/StorageSection";
@@ -26,7 +27,7 @@ export function DashboardPage() {
         <div className="min-h-screen p-4 md:p-6 max-w-7xl mx-auto relative">
             <div className="py-4 w-full flex justify-between">
                 <div className="flex items-center gap-2">
-                    <img src="/logo.svg" alt="Logo" className="w-auto h-12" />
+                    <img src={`${BASE_PATH}/logo.svg`} alt="Logo" className="w-auto h-12" />
                     <h1 className="text-xl text-primary">AURA</h1>
                 </div>
                 <div className="flex items-center gap-2">

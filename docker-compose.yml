@@ -3,6 +3,8 @@ services:
         build:
             context: .
             dockerfile: Dockerfile
+            args:
+                - BASE_PATH=${BASE_PATH:-}
         container_name: aura
         restart: unless-stopped
         ports:
@@ -24,6 +26,7 @@ services:
         environment:
             - NODE_ENV=production
             - PORT=2655
+            - BASE_PATH=${BASE_PATH:-}
         # If docker.sock permission is denied, run:
         #   sudo usermod -aG docker $USER
         # or uncomment and set the docker group id:

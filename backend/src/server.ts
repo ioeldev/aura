@@ -72,6 +72,8 @@ function loadServices(): ServiceConfig[] {
     }
 }
 
+const BASE_PATH = (process.env.BASE_PATH || "").replace(/\/$/, "") || "";
+
 const app = express();
 const docker = new Docker({ socketPath: "/var/run/docker.sock" });
 const PORT = process.env.PORT || 2655;
@@ -79,6 +81,16 @@ const STATIC_DIR = process.env.STATIC_DIR || path.join(__dirname, "../../public"
 
 app.use(cors());
 app.use(express.json());
+
+// Strip BASE_PATH from incoming requests so routes match (for reverse proxy subpath deployment)
+if (BASE_PATH) {
+    app.use((req, res, next) => {
+        if (req.url === BASE_PATH || req.url.startsWith(BASE_PATH + "/")) {
+            req.url = req.url === BASE_PATH ? "/" : req.url.slice(BASE_PATH.length);
+        }
+        next();
+    });
+}
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
@@ -250,7 +262,7 @@ app.get("/api/auth/me", (req, res) => {
     }
     const username = validateSession(token);
     if (!username) {
-        res.status(401).json({ error: "Session expirée" });
+        res.status(401).json({ error: "Session expired" });
         return;
     }
     res.json({ username });
@@ -510,7 +522,8 @@ app.get("*", (_req, res) => {
 // ─── HTTP Server + WebSocket ───────────────────────────────────────────────────
 
 const httpServer = createServer(app);
-const wss = new WebSocketServer({ server: httpServer, path: "/ws" });
+const wsPath = BASE_PATH ? `${BASE_PATH}/ws` : "/ws";
+const wss = new WebSocketServer({ server: httpServer, path: wsPath });
 const networkStatsSubscribers = new Set<WebSocket>();
 
 wss.on("connection", (ws, req) => {
@@ -551,7 +564,8 @@ setInterval(async () => {
 }, NETWORK_STATS_INTERVAL_MS);
 
 httpServer.listen(PORT, () => {
-    console.log(`Backend running on http://localhost:${PORT} (ws://localhost:${PORT}/ws)`);
+    const base = BASE_PATH ? `${BASE_PATH}` : "";
+    console.log(`Backend running on http://localhost:${PORT}${base} (ws://localhost:${PORT}${wsPath})`);
     console.log(
         `Auth: ${
             AUTH_ENABLED

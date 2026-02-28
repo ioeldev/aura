@@ -1,5 +1,8 @@
 # ── Stage 1: Build Frontend ───────────────────────────────────────────────────
 FROM oven/bun:alpine AS frontend-builder
+ARG BASE_PATH=
+ENV VITE_BASE_PATH=${BASE_PATH}
+
 WORKDIR /app
 
 COPY shared/ ./shared/
