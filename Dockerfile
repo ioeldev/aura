@@ -29,6 +29,9 @@ RUN cd backend && bun build src/server.ts \
 FROM oven/bun:alpine AS production
 WORKDIR /app
 
+# Runtime dependency for network history
+RUN apk add --no-cache vnstat
+
 # Build tools needed to compile dockerode's native deps
 RUN apk add --no-cache python3 make g++
 RUN bun add dockerode@4
