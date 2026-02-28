@@ -1,10 +1,4 @@
-import { BASE_PATH } from "./basePath";
-
 const TOKEN_KEY = 'aura-auth-token';
-
-function apiUrl(path: string): string {
-    return `${BASE_PATH}${path}`;
-}
 
 export function getToken(): string | null {
   return localStorage.getItem(TOKEN_KEY);
@@ -30,7 +24,7 @@ export async function apiFetch(url: string, options: RequestInit = {}): Promise<
   };
   if (token) headers['Authorization'] = `Bearer ${token}`;
 
-  const res = await fetch(apiUrl(url), { ...options, headers });
+  const res = await fetch(url, { ...options, headers });
 
   if (res.status === 401) {
     clearToken();
@@ -45,7 +39,6 @@ export function getWsUrl(): string | null {
   const token = getToken();
   const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
   const host = window.location.host;
-  const path = `${BASE_PATH}/ws`;
-  const base = `${protocol}//${host}${path}`;
+  const base = `${protocol}//${host}/ws`;
   return token ? `${base}?token=${token}` : base;
 }

@@ -1,6 +1,5 @@
 import { createContext, useContext, useState, useEffect, useCallback, type ReactNode } from 'react';
 import { getToken, setToken, clearToken } from '@/lib/api';
-import { BASE_PATH } from '@/lib/basePath';
 
 interface AuthContextValue {
   isAuthenticated: boolean;
@@ -20,7 +19,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const verifySession = useCallback(async () => {
     const token = getToken();
     try {
-      const res = await fetch(`${BASE_PATH}/api/auth/me`, {
+      const res = await fetch('/api/auth/me', {
         headers: token ? { Authorization: `Bearer ${token}` } : {},
       });
       if (res.ok) {
@@ -55,7 +54,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const login = useCallback(async (user: string, password: string) => {
-    const res = await fetch(`${BASE_PATH}/api/auth/login`, {
+    const res = await fetch('/api/auth/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ username: user, password }),
@@ -74,7 +73,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const token = getToken();
     if (token) {
       try {
-        await fetch(`${BASE_PATH}/api/auth/logout`, {
+        await fetch('/api/auth/logout', {
           method: 'POST',
           headers: { Authorization: `Bearer ${token}` },
         });

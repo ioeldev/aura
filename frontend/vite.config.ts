@@ -3,10 +3,9 @@ import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 
-// Relative base so the same build works at any path (root or /aura). BASE_PATH is injected at runtime.
 // https://vite.dev/config/
 export default defineConfig({
-    base: "./",
+    base: "/",
     plugins: [
         tailwindcss(),
         react({
