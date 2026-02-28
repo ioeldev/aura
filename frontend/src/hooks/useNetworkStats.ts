@@ -10,7 +10,7 @@ interface UseNetworkStatsResult {
 
 export function useNetworkStats(): UseNetworkStatsResult {
     const [initialData, setInitialData] = useState<NetworkInfo | null>(null);
-    const { sendJsonMessage, lastJsonMessage, readyState } = useWebSocket(getWsUrl, {
+    const { sendJsonMessage, lastJsonMessage, readyState } = useWebSocket(getWsUrl() ?? "", {
         share: true,
         shouldReconnect: () => true,
         reconnectAttempts: 10,
@@ -20,12 +20,14 @@ export function useNetworkStats(): UseNetworkStatsResult {
     useEffect(() => {
         let cancelled = false;
         apiFetch("/api/network-stats")
-            .then((res) => res.ok ? res.json() : null)
+            .then((res) => (res.ok ? res.json() : null))
             .then((json: NetworkInfo | null) => {
                 if (!cancelled && json) setInitialData(json);
             })
             .catch(() => {});
-        return () => { cancelled = true; };
+        return () => {
+            cancelled = true;
+        };
     }, []);
 
     useEffect(() => {
