@@ -17,6 +17,8 @@ services:
               read_only: true
               bind:
                   propagation: rslave
+            # vnstat database from host so network history works
+            - /var/lib/vnstat:/var/lib/vnstat:ro
             # Optional: persist auth sessions across restarts
             # - ./data:/app/data
         env_file:

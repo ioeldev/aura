@@ -39,6 +39,7 @@ docker run -d \
   -v /var/run/docker.sock:/var/run/docker.sock:ro \
   -v /mnt:/mnt:ro \
   -v $(pwd)/services.json:/app/config/services.json:ro \
+  -v /var/lib/vnstat:/var/lib/vnstat:ro \
   -e ADMIN_USERNAME=admin \
   -e ADMIN_PASSWORD=changeme \
   ghcr.io/ioeldev/aura:latest
@@ -60,6 +61,7 @@ services:
             - /var/run/docker.sock:/var/run/docker.sock:ro
             - /mnt:/mnt:ro
             - ./services.json:/app/config/services.json:ro
+            - /var/lib/vnstat:/var/lib/vnstat:ro
         environment:
             - ADMIN_USERNAME=admin
             - ADMIN_PASSWORD=changeme
@@ -137,6 +139,7 @@ Icons: [walkxcode/dashboard-icons](https://github.com/walkxcode/dashboard-icons)
 | `/var/run/docker.sock`                      | Read container states from Docker     |
 | `./services.json:/app/config/services.json` | Your services list                    |
 | `/mnt`                                      | Host mount points for disk monitoring |
+| `/var/lib/vnstat`                           | Host vnstat database for network history |
 | `./data:/app/data` _(optional)_             | Persist auth sessions across restarts |
 
 ---
