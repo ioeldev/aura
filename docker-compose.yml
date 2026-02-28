@@ -1,31 +1,31 @@
 services:
-  aura:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    container_name: aura
-    restart: unless-stopped
-    ports:
-      - "3000:3000"
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock:ro
-      - ./config:/app/config:ro
-      # Mount /mnt so all disk submounts are visible inside the container
-      - type: bind
-        source: /mnt
-        target: /mnt
-        read_only: true
-        bind:
-          propagation: rslave
-      # Optional: persist auth sessions across restarts
-      # - ./data:/app/data
-    env_file:
-      - .env
-    environment:
-      - NODE_ENV=production
-      - PORT=3000
-    # If docker.sock permission is denied, run:
-    #   sudo usermod -aG docker $USER
-    # or uncomment and set the docker group id:
-    # group_add:
-    #   - "999"
+    aura:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        container_name: aura
+        restart: unless-stopped
+        ports:
+            - "2655:2655"
+        volumes:
+            - /var/run/docker.sock:/var/run/docker.sock:ro
+            - ./config:/app/config:ro
+            # Mount /mnt so all disk submounts are visible inside the container
+            - type: bind
+              source: /mnt
+              target: /mnt
+              read_only: true
+              bind:
+                  propagation: rslave
+            # Optional: persist auth sessions across restarts
+            # - ./data:/app/data
+        env_file:
+            - .env
+        environment:
+            - NODE_ENV=production
+            - PORT=2655
+        # If docker.sock permission is denied, run:
+        #   sudo usermod -aG docker $USER
+        # or uncomment and set the docker group id:
+        # group_add:
+        #   - "999"

@@ -1,25 +1,25 @@
 services:
-  aura:
-    image: ghcr.io/yourname/aura:latest
-    container_name: aura
-    restart: unless-stopped
-    ports:
-      - "3000:3000"
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock:ro
-      - ./services.json:/app/config/services.json:ro
-      # Mount /mnt so all disk submounts are visible inside the container
-      - type: bind
-        source: /mnt
-        target: /mnt
-        read_only: true
-        bind:
-          propagation: rslave
-      # Optional: persist auth sessions across restarts
-      # - ./data:/app/data
-    environment:
-      - ADMIN_USERNAME=admin
-      - ADMIN_PASSWORD=changeme        # change this!
-      - SESSION_EXPIRE_HOURS=24
-    # If docker.sock permission is denied:
-    #   sudo usermod -aG docker $USER
+    aura:
+        image: ghcr.io/yourname/aura:latest
+        container_name: aura
+        restart: unless-stopped
+        ports:
+            - "2655:2655"
+        volumes:
+            - /var/run/docker.sock:/var/run/docker.sock:ro
+            - ./services.json:/app/config/services.json:ro
+            # Mount /mnt so all disk submounts are visible inside the container
+            - type: bind
+              source: /mnt
+              target: /mnt
+              read_only: true
+              bind:
+                  propagation: rslave
+            # Optional: persist auth sessions across restarts
+            # - ./data:/app/data
+        environment:
+            - ADMIN_USERNAME=admin
+            - ADMIN_PASSWORD=changeme # change this!
+            - SESSION_EXPIRE_HOURS=24
+        # If docker.sock permission is denied:
+        #   sudo usermod -aG docker $USER

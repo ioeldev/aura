@@ -14,9 +14,7 @@ import type { ServiceConfig } from "../../shared/services.config";
 
 // ─── Runtime services config ──────────────────────────────────────────────────
 
-const SERVICES_CONFIG_PATH =
-    process.env.SERVICES_CONFIG_PATH ||
-    path.join(process.cwd(), "config/services.json");
+const SERVICES_CONFIG_PATH = process.env.SERVICES_CONFIG_PATH || path.join(process.cwd(), "config/services.json");
 
 const SERVICES_FALLBACK_PATH = path.join(process.cwd(), "config/services.example.json");
 
@@ -29,8 +27,18 @@ let servicesCache: ServicesCache | null = null;
 
 function loadServices(): ServiceConfig[] {
     const filePath = (() => {
-        try { statSync(SERVICES_CONFIG_PATH); return SERVICES_CONFIG_PATH; } catch { /* not found */ }
-        try { statSync(SERVICES_FALLBACK_PATH); return SERVICES_FALLBACK_PATH; } catch { /* not found */ }
+        try {
+            statSync(SERVICES_CONFIG_PATH);
+            return SERVICES_CONFIG_PATH;
+        } catch {
+            /* not found */
+        }
+        try {
+            statSync(SERVICES_FALLBACK_PATH);
+            return SERVICES_FALLBACK_PATH;
+        } catch {
+            /* not found */
+        }
         return null;
     })();
 
@@ -51,7 +59,9 @@ function loadServices(): ServiceConfig[] {
         const services = parsed.services ?? [];
         servicesCache = { services, mtime };
         if (filePath === SERVICES_FALLBACK_PATH) {
-            console.warn(`[services] Using example config. Copy it to ${SERVICES_CONFIG_PATH} and edit it for your setup.`);
+            console.warn(
+                `[services] Using example config. Copy it to ${SERVICES_CONFIG_PATH} and edit it for your setup.`
+            );
         } else {
             console.log(`[services] Loaded ${services.length} service(s) from ${filePath}`);
         }
@@ -64,7 +74,7 @@ function loadServices(): ServiceConfig[] {
 
 const app = express();
 const docker = new Docker({ socketPath: "/var/run/docker.sock" });
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 2655;
 const STATIC_DIR = process.env.STATIC_DIR || path.join(__dirname, "../../public");
 
 app.use(cors());

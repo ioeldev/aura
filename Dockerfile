@@ -45,10 +45,10 @@ COPY --from=frontend-builder /app/frontend/dist/ ./public/
 COPY config/services.example.json ./config/services.example.json
 
 ENV NODE_ENV=production
-ENV PORT=3000
+ENV PORT=2655
 ENV STATIC_DIR=/app/public
 ENV DATA_DIR=/app/data
 
-EXPOSE 3000
+EXPOSE 2655
 
 CMD ["bun", "server.js"]
