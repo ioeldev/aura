@@ -6,8 +6,9 @@ _A sleek, self-hosted dashboard for your *arr stack and Docker services._
 
 
 
-![Version](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fapi.github.com%2Frepos%2Fioeldev%2Faura%2Ftags&query=%24%5B0%5D.name&label=version&color=blue&logo=github)
-![License](https://img.shields.io/github/license/ioeldev/aura)
+![Version](https://img.shields.io/github/v/tag/ioeldev/aura?label=version&color=blue&logo=github)
+![Image Size](https://ghcr-badge.egpl.dev/ioeldev/aura/size?color=%2348b620&tag=latest&label=image+size)
+[![License](https://img.shields.io/github/license/ioeldev/aura?color=orange)](https://github.com/ioeldev/aura/blob/main/LICENSE)
 
 [Features](#features) • [Installation](#option-a--pull-from-registry-recommended) • [Configuration](#configuration)
 
