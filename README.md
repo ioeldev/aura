@@ -1,8 +1,20 @@
-# Aura
+<div align="center">
+
+# <img width="40px" src="./frontend/public/logo.svg" alt="Aura"></img> Aura
+
+_A sleek, self-hosted dashboard for your *arr stack and Docker services._
+
+![Version](https://img.shields.io/github/v/release/ioeldev/aura?label=version&color=blue&logo=github)
+![Downloads](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fghcr-badge.org%2Fapi%2Fioeldev%2Faura&query=%24.downloadCount&style=flat&logo=docker&label=downloads&color=blue)
+[![License](https://img.shields.io/github/license/ioeldev/aura)](https://github.com/ioeldev/aura/blob/main/LICENSE)
+
+[Features](#features) • [Installation](#option-a--pull-from-registry-recommended) • [Configuration](#configuration)
+
+</div>
+
+---
 
 A self-hosted Docker services dashboard — monitor containers, system stats, network traffic and disk usage from a single page.
-
-![Aura panel screenshot](https://gcdnb.pbrd.co/images/JOFaqx4WaYSQ.png)
 
 ## Features
 
@@ -12,6 +24,12 @@ A self-hosted Docker services dashboard — monitor containers, system stats, ne
 -   **Storage** — disk usage for `/` and every `/mnt/*` mount point
 -   **Auth** — username + password login with server-side sessions (SQLite)
 -   **Themes** — light / dark mode
+
+---
+
+## Screenshot
+
+![Aura panel screenshot](https://gcdnb.pbrd.co/images/JOFaqx4WaYSQ.png)
 
 ---
 
